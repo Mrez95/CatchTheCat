@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>MEOW~!</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <style type="text/css">
+            .platform, .platform_exit {
+                position:relative;
+                background-color:rgb(255,153,51);
+                height:30px;
+                width:30px;
+                margin:10px;
+                float:left;
+            }
+            .platform_exit{
+                background-color:white !important;
+            }
+            .platform:hover{
+                background: red;
+                /*                    -webkit-transition: background 0.7s ease-out;
+                                    -moz-transition: background 0.7s ease-out;
+                                    transition: background 0.7s ease-out;*/
+            }
+            .container{
+                position:relative;
+                width:600px;
+                height:600px;
+                margin:auto;
+            }
+        </style>
+        <script>
+            $(document).ready(function() {
+                var arr = [];
+                for (var x = 0; x < 12; x++) {
+                    arr[x] = [];
+                    for (var y = 0; y < 12; y++) {
+                        if (x===0||x===11||y===0||y===11){ // invisible border for escape
+                            arr[x][y] = $('<div>').addClass("platform_exit").attr("id", x + "-" + y);
+                        }
+                        else{
+                            arr[x][y] = $('<div>').addClass("platform").attr("id", x + "-" + y);
+                        }
+                        arr[x][y].appendTo('div.container');
+                        //$('<div class="platform"/>').appendTo('div.container');
+                    }
+                }
+//                    setTimeout(function() {
+//                     $('<div class="platform"/>').appendTo('div.container');
+//                    }, 25*i);
+                cat_x = getRandInt();
+                cat_y = getRandInt();
+                $(arr[cat_x][cat_y]).css('background-color', 'lightgreen');
+                $(".platform").click(function() {
+                    $(this).css({
+                        backgroundColor: 'red'
+//                    WebkitTransition : 'background 0.7s ease-out',
+//                    MozTransition    : 'background 0.7s ease-out',
+//                    MsTransition     : 'background 0.7s ease-out',
+//                    OTransition      : 'background 0.7s ease-out',
+//                    transition       : 'background 0.7s ease-out'
+                    });
+                    findPath(cat_x,cat_y);
+                });
+            });
+            function getRandInt() { // returns random # 1 - 10
+                return Math.floor((Math.random() * 10)+1); 
+            }
+            function findPath(x,y) { //NOTE: x is up/down. y is left/right. x-1 is up 1. y-1 is left 1
+                var newX, newY;
+                if ($("div#"+x+"-"+(y-1)).css('background-color')=='rgb(255, 153, 51)'){ //todo: this always check left so always move left. Make dynamic
+                    newX=x;
+                    newY=y-1;
+                }
+                else if ($("div#"+x+"-"+(y+1)).css('background-color')=='rgb(255, 153, 51)'){ //todo: can't hover over cat walked places. Diff class:hover
+                    newX=x;
+                    newY=y+1;
+                }
+
+                else if ($("div#"+(x-1)+"-"+y).css('background-color')=='rgb(255,153,51)'){
+                    newX=x-1;
+                    newY=y;
+                }
+                else if ($("div#"+(x+1)+"-"+y).css('background-color')=='rgb(255,153,51)'){
+                    newX=x+1;
+                    newY=y;
+                }
+                else{
+                    alert("ELSE");
+                }
+                               alert($("div#"+(x-1)+"-"+y).css('background-color'));
+                $(".platform#"+x+"-"+y).css('background-color','rgb(255,153,51)') // moved. Change preoccupied color to neutral
+                $(".platform#"+newX+"-"+newY).css('background-color','black'); // new position
+                cat_x = newX;
+                cat_y = newY;
+            }
+        </script>
+    </head>
+    <body>
+        <div class="container"></div>
+    </body>
+</html>
