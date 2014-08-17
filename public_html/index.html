@@ -50,12 +50,6 @@
                         //$('<div class="platform"/>').appendTo('div.container');
                     }
                 }
-                for (var z = 0; z < 8; z++) { // generate z initial blocks
-                    console.log(randX);
-                    var randX = Math.floor((Math.random() * 10) + 1);
-                    var randY = Math.floor((Math.random() * 10) + 1);
-                    $("div#" + randX + "-" + randY).addClass("blocked");
-                }
 
 //                    setTimeout(function() {
 //                     $('<div class="platform"/>').appendTo('div.container');
@@ -65,17 +59,27 @@
                 var randWay = Math.floor((Math.random() * 4) + 1); // randomly selects a direction to start 1-4
                 //$(arr[cat_x][cat_y]).css('background-color', 'lightgreen');
                 $("div#" + cat_x + "-" + cat_y).addClass("active");
+                for (var z = 0; z < 8; z++) { // generate z initial blocks
+                    var randX = Math.floor((Math.random() * 10) + 1);
+                    var randY = Math.floor((Math.random() * 10) + 1);
+                    if ($("div#" + randX + "-" + randY).hasClass("active")) {
+                        z--; // increment one more time to randomly generate a fence
+                    }
+                    else {
+                        $("div#" + randX + "-" + randY).addClass("blocked");
+                    }
+                }
                 $(".platform").click(function() {
                     $(this).addClass("blocked");
                     findPath(cat_x, cat_y, randWay);
                 });
             });
             function findPath(x, y, randWay) { //NOTE: x is up/down. y is left/right. x-1 is up 1. y-1 is left 1
-               
+
                 for (i = 0; i < 4; i++) {
                     randWay++;
                     var methodName = 'direction'.concat(randWay > 4 ? randWay -= 4 : randWay);
-                    if (window[methodName](x,y)){
+                    if (window[methodName](x, y)) {
                         $("div#" + x + "-" + y).removeClass("active") // moved. Change preoccupied color to neutral
                         $("div#" + newX + "-" + newY).addClass("active"); // new position
                         if ($("div#" + newX + "-" + newY).hasClass("platform_exit")) {
@@ -85,7 +89,7 @@
                         cat_y = newY;
                         break;
                     }
-                    else if (i >= 3){ // last loop and break didn't trigger so all paths failed.
+                    else if (i >= 3) { // last loop and break didn't trigger so all paths failed.
                         alert("YOU WON!!");
                     }
                 }
