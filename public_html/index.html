@@ -5,30 +5,9 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="css/style.css">
         <style type="text/css">
-            .platform, .platform_exit {
-                position:relative;
-                background-color:rgb(255,153,51);
-                height:30px;
-                width:30px;
-                margin:10px;
-                float:left;
-            }
-            .platform_exit{
-                background-color:white !important;
-            }
-            .platform:hover, .blocked {
-                background: red;
-            }
-            .container{
-                position:relative;
-                width:600px;
-                height:600px;
-                margin:auto;
-            }
-            .active{
-                background-color: lightgreen !important;
-            }
+            
         </style>
         <script>
             var newX, newY, intendedDirection; //global
@@ -73,16 +52,19 @@
                 var randSide = Math.floor((Math.random() * 2) + 1);
                 switch (direction) {
                     case 1:
-                        randSide == 1 ? pathFinding = [1,2,4,3] : pathFinding = [1,4,2,3];
+                        randSide == 1 ? pathFinding = [1, 2, 4, 3] : pathFinding = [1, 4, 2, 3];
+                        // pathFinding = [1, 5, 7, 2, 4, 6, 8, 3]; pathFinding = [1, 7, 5, 2, 4, 6, 8, 3]; etc.
                         break;
                     case 2:
-                        randSide == 1 ? pathFinding = [2,1,3,4] : pathFinding = [2,3,1,4] ;
+                        randSide == 1 ? pathFinding = [2, 1, 3, 4] : pathFinding = [2, 3, 1, 4];
+                        // pathFinding = [2, 7, 8, 1, 3, 5, 6, 4]; pathFinding = [2, 8, 7, 1, 3, 5, 6, 4]; etc.
                         break;
                     case 3:
-                        randSide == 1 ? pathFinding = [3,2,4,1] : pathFinding = [3,4,2,1];
+                        randSide == 1 ? pathFinding = [3, 2, 4, 1] : pathFinding = [3, 4, 2, 1];
+                        // pathFinding = [3, 6, 8, 2, 4, 5, 7, 1]; pathFinding = [3, 8, 6, 2, 4, 5, 7, 1]; etc. //double check
                         break;
                     case 4:
-                        randSide == 1 ? pathFinding = [4,3,1,2] : pathFinding = [4,1,3,2];
+                        randSide == 1 ? pathFinding = [4, 3, 1, 2] : pathFinding = [4, 1, 3, 2];
                         break;
                 }
                 for (i = 0; i < 4; i++) {
@@ -136,7 +118,38 @@
                 }
                 return false;
             }
-
+            function direction5(x, y) {
+                if (!$("div#" + (x - 1) + "-" + (y - 1)).hasClass("blocked")) { // top-left
+                    newX = x - 1;
+                    newY = y;
+                    return true;
+                }
+                return false;
+            }
+            function direction6(x, y) {
+                if (!$("div#" + (x - 1) + "-" + (y + 1)).hasClass("blocked")) { // top-right
+                    newX = x - 1;
+                    newY = y;
+                    return true;
+                }
+                return false;
+            }
+            function direction7(x, y) {
+                if (!$("div#" + (x + 1) + "-" + (y - 1)).hasClass("blocked")) { // bottom-left
+                    newX = x - 1;
+                    newY = y;
+                    return true;
+                }
+                return false;
+            }
+            function direction8(x, y) {
+                if (!$("div#" + (x + 1) + "-" + (y + 1)).hasClass("blocked")) { // bottom-right
+                    newX = x - 1;
+                    newY = y;
+                    return true;
+                }
+                return false;
+            }
             function getRandInt() { // returns random # 4-5
                 return Math.floor((Math.random() * 5) + 4);
             }
@@ -145,5 +158,20 @@
     </head>
     <body>
         <div class="container"></div>
+        <div class="container">
+            <ol class="even">
+                <li class='hex'></li>
+                <li class='hex'></li>
+            </ol>  
+            <ol class="odd">
+                <li class='hex'></li>
+                <li class='hex'></li>
+                <li class='hex'></li>
+            </ol>
+            <ol class="even">
+                <li class='hex'></li>
+                <li class='hex'></li>
+            </ol>  
+        </div>
     </body>
 </html>
