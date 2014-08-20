@@ -7,27 +7,42 @@
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
         <link rel="stylesheet" type="text/css" href="css/style.css">
         <style type="text/css">
-            
+
         </style>
         <script>
             var newX, newY, intendedDirection; //global
             $(document).ready(function() {
+// LEVEL 1
+//                var arr = [];
+//                for (var x = 0; x < 12; x++) { // generate the map
+//                    arr[x] = [];
+//                    for (var y = 0; y < 12; y++) {
+//                        if (x === 0 || x === 11 || y === 0 || y === 11) { // invisible border for escape
+//                            arr[x][y] = $('<div>').addClass("platform_exit").attr("id", x + "-" + y);
+//                        }
+//                        else {
+//                            arr[x][y] = $('<div>').addClass("platform").attr("id", x + "-" + y);
+//                        }
+//                        arr[x][y].appendTo('div.container');
+//                    }
+//                }
+
+// LEVEL 2
                 var arr = [];
-                for (var x = 0; x < 12; x++) { // generate the map
-                    arr[x] = [];
-                    for (var y = 0; y < 12; y++) {
-                        if (x === 0 || x === 11 || y === 0 || y === 11) { // invisible border for escape
-                            arr[x][y] = $('<div>').addClass("platform_exit").attr("id", x + "-" + y);
-                        }
-                        else {
-                            arr[x][y] = $('<div>').addClass("platform").attr("id", x + "-" + y);
-                        }
-                        arr[x][y].appendTo('div.container');
+                for (var x = 0; x < 11; x++) { // generate the map
+                    var classType = x % 2 == 0 ? "even" : "odd";
+                    arr[x] = $('<ol>').addClass(classType).attr("id", x);
+                    arr[x].appendTo('div.container');
+                    var loopCount = x % 2 == 0 ? 11 : 12
+                    for (var y = 0; y < loopCount; y++) {
+                        arr[x][y] = $('<li>').addClass("hex").attr("id", x + "-" + y);
+                        arr[x][y].appendTo('ol#' + x + "." + classType); // to pick unique even/odd pairs
                     }
                 }
-//                    setTimeout(function() {
-//                     $('<div class="platform"/>').appendTo('div.container');
-//                    }, 25*i);
+
+// LEVEL 3 (Same As Level one. Transform into circles)
+
+
                 cat_x = getRandInt(); // called only once on load
                 cat_y = getRandInt();
                 intendedDirection = Math.floor((Math.random() * 4) + 1); // randomly selects a direction to start 1-4
@@ -42,7 +57,7 @@
                         $("div#" + randX + "-" + randY).addClass("blocked");
                     }
                 }
-                $(".platform").click(function() {
+                $(".platform, .hex").click(function() { // CHECK SYNTAX!! ??????????????????????
                     $(this).addClass("blocked");
                     findPath(cat_x, cat_y, intendedDirection);
                 });
@@ -157,21 +172,21 @@
         </script>
     </head>
     <body>
-        <div class="container"></div>
+        <!--<div class="container"></div>-->
         <div class="container">
-            <ol class="even">
-                <li class='hex'></li>
-                <li class='hex'></li>
-            </ol>  
-            <ol class="odd">
-                <li class='hex'></li>
-                <li class='hex'></li>
-                <li class='hex'></li>
-            </ol>
-            <ol class="even">
-                <li class='hex'></li>
-                <li class='hex'></li>
-            </ol>  
+            <!--            <ol class="even">
+                            <li class='hex'></li>
+                            <li class='hex'></li>
+                        </ol>  
+                        <ol class="odd">
+                            <li class='hex'></li>
+                            <li class='hex'></li>
+                            <li class='hex'></li>
+                        </ol>
+                        <ol class="even">
+                            <li class='hex'></li>
+                            <li class='hex'></li>
+                        </ol>  -->
         </div>
     </body>
 </html>

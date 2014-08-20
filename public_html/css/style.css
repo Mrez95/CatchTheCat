@@ -1,13 +1,15 @@
 /* ----------------------------------------- */
 .container {
-  width: 1000px;
+  width: 1100px;
   line-height: 1.3; }
 
 ol.even {
+  width: 1100px;
   position: relative;
   left: 1.81818em; }
 
 ol.odd {
+  width: 1200px;
   position: relative;
   margin-top: -6.5%;
   margin-bottom: -6.5%; }
@@ -73,5 +75,3 @@ ol.odd {
 
 .active {
   background-color: #cff3bf !important; }
-
-/*# sourceMappingURL=style.css.map */
