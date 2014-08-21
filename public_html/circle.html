@@ -7,9 +7,9 @@
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
         <link rel="stylesheet" type="text/css" href="css/style.css">
         <style type="text/css">
-          div{
-                border-radius:5px;
-            } 
+            div{
+                border-radius:50%;
+            }
         </style>
         <script>
             var newX, newY, intendedDirection; //global
@@ -54,19 +54,31 @@
                 var randSide = Math.floor((Math.random() * 2) + 1);
                 switch (direction) {
                     case 1:
-                        randSide == 1 ? pathFinding = [1, 2, 4, 3] : pathFinding = [1, 4, 2, 3];
+                        randSide == 1 ? pathFinding = [1, 5, 7, 2, 4, 6, 8, 3] : pathFinding = [1, 7, 5, 2, 4, 6, 8, 3];                       
                         break;
                     case 2:
-                        randSide == 1 ? pathFinding = [2, 1, 3, 4] : pathFinding = [2, 3, 1, 4];
+                        randSide == 1 ? pathFinding = [2, 7, 8, 1, 3, 5, 6, 4] : pathFinding = [2, 8, 7, 1, 3, 5, 6, 4];
                         break;
                     case 3:
-                        randSide == 1 ? pathFinding = [3, 2, 4, 1] : pathFinding = [3, 4, 2, 1];
+                        randSide == 1 ? pathFinding = [3, 6, 8, 2, 4, 5, 7, 1] : pathFinding = [3, 8, 6, 2, 4, 5, 7, 1];
                         break;
                     case 4:
-                        randSide == 1 ? pathFinding = [4, 3, 1, 2] : pathFinding = [4, 1, 3, 2];
+                        randSide == 1 ? pathFinding = [4, 5, 6, 3, 1, 7, 8, 2] : pathFinding = [4, 6, 5, 3, 1, 7, 8, 2];
+                        break;
+                    case 5:
+                        randSide == 1 ? pathFinding = [5, 4, 1, 6, 7, 3, 2, 8] : pathFinding = [5, 1, 4, 6, 7, 3, 2, 8];
+                        break;
+                    case 6:
+                        randSide == 1 ? pathFinding = [6, 4, 3, 8, 5, 1, 2, 7] : pathFinding = [6, 3, 4, 8, 5, 1, 2, 7];
+                        break;
+                    case 7:
+                        randSide == 1 ? pathFinding = [7, 1, 2, 5, 8, 4, 3, 6] : pathFinding = [7, 2, 1, 5, 8, 4, 3, 6];
+                        break;
+                    case 8:  
+                        randSide == 1 ? pathFinding = [8, 2, 3, 6, 7, 4, 1, 5] : pathFinding = [8, 3, 2, 6, 7, 4, 1, 5];
                         break;
                 }
-                for (i = 0; i < 4; i++) {
+                for (i = 0; i < 8; i++) {
                     if (window["direction".concat(pathFinding[i])](x, y)) {
                         $("div#" + x + "-" + y).removeClass("active") // moved. Change preoccupied color to neutral
                         $("div#" + newX + "-" + newY).addClass("active"); // new position
@@ -78,7 +90,7 @@
                         intendedDirection = pathFinding[i]; // gets intended direction
                         break;
                     }
-                    else if (i >= 3) { // last loop and break didn't trigger so all paths failed.
+                    else if (i >= 7) { // last loop and break didn't trigger so all paths failed.
                         alert("YOU WON!!");
                     }
                 }
@@ -113,6 +125,38 @@
                 if (!$("div#" + (x - 1) + "-" + y).hasClass("blocked")) { // up
                     newX = x - 1;
                     newY = y;
+                    return true;
+                }
+                return false;
+            }
+            function direction5(x, y) {
+                if (!$("div#" + (x - 1) + "-" + (y - 1)).hasClass("blocked")) { // top-left
+                    newX = x - 1;
+                    newY = y - 1;
+                    return true;
+                }
+                return false;
+            }
+            function direction6(x, y) {
+                if (!$("div#" + (x - 1) + "-" + (y + 1)).hasClass("blocked")) { // top-right
+                    newX = x - 1;
+                    newY = y + 1;
+                    return true;
+                }
+                return false;
+            }
+            function direction7(x, y) {
+                if (!$("div#" + (x + 1) + "-" + (y - 1)).hasClass("blocked")) { // bottom-left
+                    newX = x + 1;
+                    newY = y - 1;
+                    return true;
+                }
+                return false;
+            }
+            function direction8(x, y) {
+                if (!$("div#" + (x + 1) + "-" + (y + 1)).hasClass("blocked")) { // bottom-right
+                    newX = x + 1;
+                    newY = y + 1;
                     return true;
                 }
                 return false;
