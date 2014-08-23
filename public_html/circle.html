@@ -32,7 +32,7 @@
 //                    }, 25*i);
                 cat_x = getRandInt(); // called only once on load
                 cat_y = getRandInt();
-                intendedDirection = Math.floor((Math.random() * 4) + 1); // randomly selects a direction to start 1-4
+                intendedDirection = Math.floor((Math.random() * 7) + 1); // randomly selects a direction to start 1-8 (NOTE: can make 1-4 so starts easier)
                 $("div#" + cat_x + "-" + cat_y).addClass("active");
                 for (var z = 0; z < 8; z++) { // generate z initial blocks
                     var randX = Math.floor((Math.random() * 10) + 1);
