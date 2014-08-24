@@ -54,7 +54,7 @@
                     }
                 }
 
-                $(".hex").click(function() {
+                $(".hex").not(".exit").click(function() {
                     $(this).addClass("blocked");
                     findPath(cat_x, cat_y, intendedDirection);
                 });
