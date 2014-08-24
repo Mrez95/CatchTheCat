@@ -16,11 +16,12 @@
             var newX, newY, intendedDirection; //global
             var even, odd = false;
             $(document).ready(function() {
+
                 var arr = [];
                 for (var x = 0; x < 11; x++) { // generate the map
                     var classType = x % 2 == 0 ? "even" : "odd";
                     arr[x] = $('<ol>').addClass(classType).attr("id", x);
-                    arr[x].appendTo('div.container');
+                    arr[x].appendTo('div.hex-container');
                     var loopCount = x % 2 == 0 ? 11 : 12
                     for (var y = 0; y < loopCount; y++) {
                         if (x === 0 || x === 10 || y === 0 || y == loopCount - 1) { // invisible border for escape
@@ -57,25 +58,17 @@
                     $(this).addClass("blocked");
                     findPath(cat_x, cat_y, intendedDirection);
                 });
+                $("div.button").click(function() {
+                    location.reload();
+                });
             });
 
             function findPath(x, y, direction) { //NOTE: x is up/down. y is left/right. x-1 is up 1. y-1 is left 1      
                 var pathFinding;
                 var randSide = Math.floor((Math.random() * 2) + 1);
-                if ($(".active").parent().hasClass("even")) {
-                    even = true;
-                }
-                else {
-                    odd = true;
-                }
                 switch (direction) {
                     case 1:
-                        if (odd){
                         randSide == 1 ? pathFinding = [1, 5, 7, 6, 8, 3] : pathFinding = [1, 7, 5, 6, 8, 3]; //done  
-                    }
-                    else{
-                        randSide == 1 ? pathFinding = [1, 5, 7, 6, 8, 3] : pathFinding = [1, 7, 5, 6, 8, 3]; //done  
-                    }
                         break;
                     case 3:
                         randSide == 1 ? pathFinding = [3, 6, 8, 5, 7, 1] : pathFinding = [3, 8, 6, 5, 7, 1]; //done
@@ -135,7 +128,7 @@
                     newY = y - 1;
                     return true;
                 }
-                else if (!$("li#" + (x - 1) + "-" + y).hasClass("blocked") && $(".active").parent().hasClass("even")){
+                else if (!$("li#" + (x - 1) + "-" + y).hasClass("blocked") && $(".active").parent().hasClass("even")) {
                     newX = x - 1;
                     newY = y;
                     return true;
@@ -174,7 +167,7 @@
                     newY = y;
                     return true;
                 }
-                else if (!$("li#" + (x + 1) + "-" + (y + 1)).hasClass("blocked") && $(".active").parent().hasClass("even")){
+                else if (!$("li#" + (x + 1) + "-" + (y + 1)).hasClass("blocked") && $(".active").parent().hasClass("even")) {
                     newX = x + 1;
                     newY = y + 1;
                     return true;
@@ -188,6 +181,7 @@
         </script>
     </head>
     <body>
-        <div class="container"></div>
+        <div class="hex-container"></div>
+        <div class="button">Restart Game</div>
     </body>
 </html>

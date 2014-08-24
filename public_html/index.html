@@ -7,7 +7,7 @@
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
         <link rel="stylesheet" type="text/css" href="css/style.css">
         <style type="text/css">
-          div{
+            div{
                 border-radius:5px;
             } 
         </style>
@@ -47,6 +47,9 @@
                 $(".platform").click(function() {
                     $(this).addClass("blocked");
                     findPath(cat_x, cat_y, intendedDirection);
+                });
+                $("div.button").click(function() {
+                    location.reload();
                 });
             });
             function findPath(x, y, direction) { //NOTE: x is up/down. y is left/right. x-1 is up 1. y-1 is left 1      
@@ -126,5 +129,6 @@
     </head>
     <body>
         <div class="container"></div>
+        <div class="button">Restart Game</div>
     </body>
 </html>
