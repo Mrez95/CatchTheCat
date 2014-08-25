@@ -8,25 +8,42 @@
         <link rel="stylesheet" type="text/css" href="css/style.css">
         <style type="text/css">
             div{
-                z-index:1;
                 border-radius:5px;
-            } 
-            .cover{
-                z-index:90000;
-                width:100%;
-                height:100%;
-                background-color:rgba(0,0,0,0.7);
+            }
+            .choice{
+                padding-top:25%;
+                width:250px;
+                height:50px;
+                margin:auto;
+                color:white;
+            }
+            .level_1{
+                width:20%;
+                margin-right:20%;
+                float:left;
+                cursor: pointer;
+            }
+            .level_2{
+                width:20%;
+                margin-right:20%;
+                float:left;
+                cursor: pointer;
+            }
+            .level_3{
+                width:20%;
+                float:right;
+                cursor: pointer;
             }
         </style>
         <script>
             var newX, newY, intendedDirection; //global
             $(document).ready(function() {
-                
+
                 $(document).on('click', ".platform:not('.active')", function() {
                     $(this).addClass("blocked");
                     findPath(cat_x, cat_y, intendedDirection);
                 });
-                
+
                 var arr = [];
                 for (var x = 0; x < 12; x++) { // generate the map
                     arr[x] = [];
@@ -35,9 +52,9 @@
                             arr[x][y] = $('<div>').addClass("platform_exit").attr("id", x + "-" + y);
                         }
                         else {
-                            arr[x][y] = $('<div>').addClass("platform").attr("id", x + "-" + y);
+                            arr[x][y] = $('<div style="z-index:-100">').addClass("platform").attr("id", x + "-" + y);
                         }
-                        arr[x][y].appendTo('div.container');
+                        arr[x][y].appendTo('div.wrapper');
                     }
                 }
 
@@ -58,6 +75,7 @@
                 $("div.button").click(function() {
                     location.reload();
                 });
+
             });
 
             function findPath(x, y, direction) { //NOTE: x is up/down. y is left/right. x-1 is up 1. y-1 is left 1      
@@ -136,9 +154,19 @@
         </script>
     </head>
     <body>
-        <div class="cover" style="position:relative;z-index:2000">
-            <div class="container" style="position:relative;z-index:-1"></div>
-            <div class="button" style="position:relative;z-index:-1">Restart Game</div>
+        <div class="cover" style="position:relative;z-index:2">
+            <div class="choice" style="position:relative">
+                <div class="level_1" style="position:relative">
+                    <a href="square.html" style="text-decoration:none; color:white">Level 1</a>
+                </div>
+                <div class="level_2" style="position:relative">
+                    <a href="hex.html" style="text-decoration:none; color:white">Level 2</a>
+                </div>
+                <div class="level_3" style="position:relative">
+                    <a href="circle.html" style="text-decoration:none; color:white">Level 3</a>
+                </div>
+            </div>
         </div>
+        <div class="wrapper" style="position:relative;z-index:1"></div>
     </body>
 </html>

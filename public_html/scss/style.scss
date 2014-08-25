@@ -76,9 +76,29 @@ ol.odd {
     position:relative;
     width: ($side-length + 2*$border-space) * 12; // formula for perfect width
     height: ($side-length + 2*$border-space) * 12;
-    margin:auto;
+    margin-left:auto;
+    margin-right:auto;
+}
+.wrapper{
+    position:relative;
+    margin-top:-($side-length + 2*$border-space) * 12;
+    width: ($side-length + 2*$border-space) * 12; // formula for perfect width
+    height: ($side-length + 2*$border-space) * 12;
+    margin-left:auto;
+    margin-right:auto;
+    -webkit-filter: blur(5px);
+    -moz-filter: blur(5px);
+    -o-filter: blur(5px);
+    -ms-filter: blur(5px);
+    filter: blur(5px);
+    opacity: 0.8;
+    -webkit-transition: -webkit-filter .50s;
+}
+.cover{
+    width:100%;
+    height:($side-length + 2*$border-space) * 12;;
+    background-color:rgba(0,0,0,0.7);
 }
 .active{
     background-color: #cff3bf !important;
 }
-
