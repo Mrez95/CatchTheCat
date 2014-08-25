@@ -2,6 +2,9 @@ $hex-size: 1.8em; // Only change size here. Best used with sizes from 5em - 10em
 $side-length: 43px;
 $border-space: 6px;
 /* ----------------------------------------- */
+body{
+    margin:0px;
+}
 .hex-container { 
     width: 750px;
     margin:auto;

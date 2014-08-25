@@ -1,4 +1,7 @@
 /* ----------------------------------------- */
+body {
+  margin: 0px; }
+
 .hex-container {
   width: 750px;
   margin: auto;

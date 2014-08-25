@@ -8,12 +8,25 @@
         <link rel="stylesheet" type="text/css" href="css/style.css">
         <style type="text/css">
             div{
+                z-index:1;
                 border-radius:5px;
             } 
+            .cover{
+                z-index:90000;
+                width:100%;
+                height:100%;
+                background-color:rgba(0,0,0,0.7);
+            }
         </style>
         <script>
             var newX, newY, intendedDirection; //global
             $(document).ready(function() {
+                
+                $(document).on('click', ".platform:not('.active')", function() {
+                    $(this).addClass("blocked");
+                    findPath(cat_x, cat_y, intendedDirection);
+                });
+                
                 var arr = [];
                 for (var x = 0; x < 12; x++) { // generate the map
                     arr[x] = [];
@@ -27,9 +40,7 @@
                         arr[x][y].appendTo('div.container');
                     }
                 }
-//                    setTimeout(function() {
-//                     $('<div class="platform"/>').appendTo('div.container');
-//                    }, 25*i);
+
                 cat_x = getRandInt(); // called only once on load
                 cat_y = getRandInt();
                 intendedDirection = Math.floor((Math.random() * 4) + 1); // randomly selects a direction to start 1-4
@@ -44,14 +55,11 @@
                         $("div#" + randX + "-" + randY).addClass("blocked");
                     }
                 }
-                $(".platform").click(function() {
-                    $(this).addClass("blocked");
-                    findPath(cat_x, cat_y, intendedDirection);
-                });
                 $("div.button").click(function() {
                     location.reload();
                 });
             });
+
             function findPath(x, y, direction) { //NOTE: x is up/down. y is left/right. x-1 is up 1. y-1 is left 1      
                 var pathFinding;
                 var randSide = Math.floor((Math.random() * 2) + 1);
@@ -128,7 +136,9 @@
         </script>
     </head>
     <body>
-        <div class="container"></div>
-        <div class="button">Restart Game</div>
+        <div class="cover" style="position:relative;z-index:2000">
+            <div class="container" style="position:relative;z-index:-1"></div>
+            <div class="button" style="position:relative;z-index:-1">Restart Game</div>
+        </div>
     </body>
 </html>

@@ -16,7 +16,10 @@
             var newX, newY, intendedDirection; //global
             var even, odd = false;
             $(document).ready(function() {
-
+                $(document).on('click', ".hex:not('.exit'):not('.active')", function() {
+                    $(this).addClass("blocked");
+                    findPath(cat_x, cat_y, intendedDirection);
+                });
                 var arr = [];
                 for (var x = 0; x < 11; x++) { // generate the map
                     var classType = x % 2 == 0 ? "even" : "odd";
@@ -53,11 +56,6 @@
                         $("li#" + randX + "-" + randY).addClass("blocked");
                     }
                 }
-
-                $(".hex").not(".exit").click(function() {
-                    $(this).addClass("blocked");
-                    findPath(cat_x, cat_y, intendedDirection);
-                });
                 $("div.button").click(function() {
                     location.reload();
                 });

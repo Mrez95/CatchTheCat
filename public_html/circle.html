@@ -14,6 +14,10 @@
         <script>
             var newX, newY, intendedDirection; //global
             $(document).ready(function() {
+                $(document).on('click', ".platform:not('.active')", function() {
+                    $(this).addClass("blocked");
+                    findPath(cat_x, cat_y, intendedDirection);
+                });
                 var arr = [];
                 for (var x = 0; x < 12; x++) { // generate the map
                     arr[x] = [];
@@ -27,9 +31,6 @@
                         arr[x][y].appendTo('div.container');
                     }
                 }
-//                    setTimeout(function() {
-//                     $('<div class="platform"/>').appendTo('div.container');
-//                    }, 25*i);
                 cat_x = getRandInt(); // called only once on load
                 cat_y = getRandInt();
                 intendedDirection = Math.floor((Math.random() * 7) + 1); // randomly selects a direction to start 1-8 (NOTE: can make 1-4 so starts easier)
@@ -44,10 +45,6 @@
                         $("div#" + randX + "-" + randY).addClass("blocked");
                     }
                 }
-                $(".platform").click(function() {
-                    $(this).addClass("blocked");
-                    findPath(cat_x, cat_y, intendedDirection);
-                });
                 $("div.button").click(function() {
                     location.reload();
                 });
