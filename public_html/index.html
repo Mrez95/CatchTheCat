@@ -38,12 +38,7 @@
         <script>
             var newX, newY, intendedDirection; //global
             $(document).ready(function() {
-
-                $(document).on('click', ".platform:not('.active')", function() {
-                    $(this).addClass("blocked");
-                    findPath(cat_x, cat_y, intendedDirection);
-                });
-
+                
                 var arr = [];
                 for (var x = 0; x < 12; x++) { // generate the map
                     arr[x] = [];
@@ -72,10 +67,7 @@
                         $("div#" + randX + "-" + randY).addClass("blocked");
                     }
                 }
-                $("div.button").click(function() {
-                    location.reload();
-                });
-
+                getAi();
             });
 
             function findPath(x, y, direction) { //NOTE: x is up/down. y is left/right. x-1 is up 1. y-1 is left 1      
@@ -100,11 +92,12 @@
                         $("div#" + x + "-" + y).removeClass("active") // moved. Change preoccupied color to neutral
                         $("div#" + newX + "-" + newY).addClass("active"); // new position
                         if ($("div#" + newX + "-" + newY).hasClass("platform_exit")) {
-                            alert("Uh-oh. The cat has escaped. YOU LOST!");
+                            location.reload();
                         }
                         cat_x = newX;
                         cat_y = newY; // update new cat location
                         intendedDirection = pathFinding[i]; // gets intended direction
+                        getAi();
                         break;
                     }
                     else if (i >= 3) { // last loop and break didn't trigger so all paths failed.
@@ -112,7 +105,19 @@
                     }
                 }
             }
-
+            function getAi() { // imatate human turn
+                for (var z = 0; z < 1; z++) { // generate z initial blocks
+                    var randX = Math.floor((Math.random() * 10) + 1);
+                    var randY = Math.floor((Math.random() * 10) + 1);
+                    if ($("div#" + randX + "-" + randY).hasClass("active")) {
+                        z--; // increment one more time to randomly generate a fence
+                    }
+                    else {
+                        $("div#" + randX + "-" + randY).addClass("blocked");
+                        setTimeout(function() { findPath(cat_x, cat_y, intendedDirection) },800);
+                    }
+                }
+            }
             //NOTE: positioned in way that opposite directions are placed furthest apart
             function direction1(x, y) {
                 if (!$("div#" + x + "-" + (y - 1)).hasClass("blocked")) { // left
