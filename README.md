@@ -1,6 +1,22 @@
-CatchTheCat
+Color Game
 ===========
 
-Uh-Oh! Your cat is sneaking away again! Catch him before he escapes! 
+A turn-based styled JavaScript puzzle strategy game. 
 
-Three Levels of Difficulty: [Try it now](http://htmlpreview.github.io/?https://github.com/Mrez95/CatchTheCat/blob/master/public_html/index.html)!
+!['alt='http://bazhanga.com/images/portfolio/color/color_cover.png'](http://bazhanga.com/images/portfolio/color/color_cover.png)
+
+Features
+------------
+
+A casual JavaScript puzzle game designed for efficient short study breaks. Paired with colorful pictures this static web game makes a perfect stress reliever. Implemented in HTML5, CSS3 and JQuery with a recursive AI algorithm. 
+
+Usage
+------------
+
+LIVE DEMO [play it here!](http://bazhanga.com/color.html).
+
+License
+-------------
+Copyright (c) 2014 Eddie Zhang.
+
+_________________________
